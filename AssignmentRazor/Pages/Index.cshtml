@@ -1,0 +1,44 @@
+﻿@page
+@using Humanizer
+@using AssignmentRazor.Extensions
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="mt-5">
+
+    <a asp-page="/Assignments/New" class="w-20 btn btn-primary m-2">+ Add new</a>
+
+    @if (Model.Assignments.Count() == 0)
+    {
+        <p class="text-center">No data to display</p>
+    }
+    else
+    {
+        <div class="row g-0">
+            @foreach (var assignment in Model.Assignments)
+            {
+                <div class="card col-3 m-2">
+                    <div class="card-header">
+                        @assignment.AssignmentType
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-truncate">
+                            <a asp-page="/Assignments/Detail" asp-route-id="@assignment.Id" class="link-light text-decoration-none" >@assignment.Title</a>
+                        </h5>
+                        <span class="@assignment.Priority.ToCssClass()">@assignment.Priority</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-truncate">
+                            @assignment.EmployeesWorkingOnAssignment
+                        </h5> 
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>@assignment.Created.Humanize(utcDate:false)</small>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,46 @@
+﻿@page "{id:int}"
+@using Humanizer
+@using AssignmentRazor.Extensions
+@model AssignmentRazor.Pages.Assignments.DetailModel
+@{
+}
+
+<div class="mt-5">
+    @if(Model.Assignment == null)
+    {
+        
+        <div class="alert alert-warning" role="alert">
+            Assignment not found
+        </div>
+    }
+    else
+    {
+        <div>
+            <h3>@Model.Assignment.Title</h3>
+            <div class="mb-2">
+                <span class="badge bg-info">@Model.Assignment.AssignmentType</span>
+                <span class="@Model.Assignment.Priority.ToCssClass()">@Model.Assignment.Priority</span>
+                <span class="badge bg-info">@Model.Assignment.Created.Humanize(utcDate:false)</span>
+            </div>
+            <p>@Model.Assignment.Description</p>
+            <p>@Model.Assignment.EmployeesWorkingOnAssignment</p>
+            <button id="resolveButton" type="submit" data-assignmentid="@Model.Assignment.Id" class="btn btn-primary btn-lg">Resolve</button>
+        </div>
+    }
+</div>
+
+@section Scripts{
+    <script>
+        $(function() {
+            var resolveBtn = document.getElementById('resolveButton')
+            resolveBtn.addEventListener('click', function(e) {
+                e.preventDefault()
+                var assignmentId = resolveBtn.getAttribute('data-assignmentid')
+                $.get(`?handler=resolve&id=${assignmentId}`, function() {
+                    alert(`Assignment ${assignmentId} has been resolved`)
+                    window.location.href = '/'
+                })
+            })
+        });
+    </script>
+}

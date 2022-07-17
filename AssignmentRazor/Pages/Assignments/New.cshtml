@@ -1,0 +1,41 @@
+﻿@page
+@using AssignmentRazor.Models
+@model AssignmentRazor.Pages.Assignments.NewModel
+@{
+}
+
+<div class="mt-5">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Assignment.Title" class="form-label">Title</label>
+            <input asp-for="Assignment.Title" class="form-control" />
+            <span asp-validation-for="Assignment.Title" class="text text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Assignment.Description" class="form-label">Description</label>
+            <textarea asp-for="Assignment.Description" class="form-control" rows="3" ></textarea>
+            <span asp-validation-for="Assignment.Description" class="text text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Assignment.EmployeesWorkingOnAssignment" class="form-label">Employees Working On Assignment</label>
+            <textarea asp-for="Assignment.EmployeesWorkingOnAssignment" class="form-control" rows="3" ></textarea>
+            <span asp-validation-for="Assignment.EmployeesWorkingOnAssignment" class="text text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Assignment.AssignmentType" class="form-label">Type</label>
+            <select class="form-select" 
+                    asp-for="Assignment.AssignmentType"
+                    asp-items="Html.GetEnumSelectList<AssignmentType>()"></select>
+
+        </div>
+        <div class="form-group">
+            <label asp-for="Assignment.Priority" class="form-label">Priority</label>
+            <select class="form-select" 
+                    asp-for="Assignment.Priority"
+                    asp-items="Html.GetEnumSelectList<Priority>()"></select>
+
+        </div>
+        <button class="wt-20 col-12 btn btn-primary btn-lg">Submit Assignment</button>
+    </form>
+</div>
